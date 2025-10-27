@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WEBTOON</title>
+    <meta name="description" content="WEBTOON在线阅读网页" />
+    <style>
+      :root { --fg:#111; --bg:#f6f7f9; --card:#fff; }
+      * { box-sizing:border-box; }
+      html,body { height:100%; }
+      body {
+        margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, PingFang SC, Noto Sans, Helvetica, Arial, sans-serif;
+        color:var(--fg); background:var(--bg); display:grid; place-items:center; padding:24px;
+      }
+      .wrap { width:min(92vw, 960px); }
+      .card {
+        background:var(--card); border-radius:18px; padding:16px; box-shadow:0 6px 24px rgba(0,0,0,.08);
+      }
+      figure { margin:0; position:relative; overflow:hidden; }
+      img {
+        display:block; width:100%; height:auto; border-radius:12px; object-fit:contain;
+        -webkit-user-drag:none; user-drag:none; pointer-events:none;
+      }
+      figcaption { margin-top:10px; text-align:center; color:#555; font-size:14px; }
+      .title { margin:0 0 12px; font-weight:600; font-size:20px; text-align:center; }
+      .hint { margin-top:14px; text-align:center; font-size:12px; color:#888; }
+
+      /* 防下载层 */
+      .overlay {
+        position:absolute; inset:0; background:transparent; z-index:10;
+      }
+
+      /* 多水印样式 */
+      .watermark-text {
+        position:absolute; color:rgba(255,255,255,0.2);
+        font-size:20px; font-weight:600; 
+        transform:rotate(-25deg);
+        pointer-events:none; white-space:nowrap;
+      }
+    </style>
+    <script>
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('dragstart', e => e.preventDefault());
+      document.addEventListener('copy', e => e.preventDefault());
+
+      // 生成随机多处水印
+      document.addEventListener('DOMContentLoaded', () => {
+        const figure = document.querySelector('figure');
+        const watermarkText = ' '; // 可修改为你的水印文字
+        const count = 120; // 水印数量
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < count; i++) {
+          const span = document.createElement('div');
+          span.className = 'watermark-text';
+          span.textContent = watermarkText;
+          span.style.top = Math.random() * 80 + '%';
+          span.style.left = Math.random() * 80 + '%';
+          span.style.fontSize = (16 + Math.random() * 10) + 'px';
+          span.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
+          fragment.appendChild(span);
+        }
+        figure.appendChild(fragment);
+      });
+    </script>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="card">
+        <h1 class="title">耳邊蜜語 第12話</h1>
+        <figure>
+          <!-- 替换为你的图片路径或相对路径 -->
+          <img src="ebmy_012.jpg" alt="我的图片" loading="lazy" />
+          <div class="overlay"></div>
+          <figcaption>微信公众号:条漫魚</figcaption>
+        </figure>
+      </div>
+    </main>
+  </body>
+</html>
